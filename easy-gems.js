@@ -30,13 +30,15 @@ const itemSelectedClass = 'eg-selected';
 function deselectItem(item) {
   item.classList.remove(itemSelectedClass);
 
-  console.log(`Deselected ${item}`);
+  item.querySelector('a').textContent = '';
 }
 
 function selectItem(item) {
   item.classList.add(itemSelectedClass);
 
-  console.log(`Selected ${item}`);
+  const itemCost = 'Cost';
+  item.style.background = `url(${item.querySelector('img').src})`;
+  item.querySelector('a').textContent = `+${itemCost}`;
 }
 
 function handleItemClick(item) {

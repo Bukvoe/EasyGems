@@ -5,7 +5,8 @@
     "content_scripts": [
         {
             "matches": ["https://steamcommunity.com/id/*/inventory*"],
-            "js": ["injector.js"]
+            "js": ["injector.js"],
+            "css": ["eg-styles.css"]
         }
     ],
     "permissions": [],
