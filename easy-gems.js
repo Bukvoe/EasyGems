@@ -20,6 +20,7 @@ const conversion = {
   textFieldId: 'eg-processed',
 };
 
+let totalGems = 0;
 let activeMode = modeIds.default;
 
 const template = document.createElement('div');
@@ -30,6 +31,10 @@ template.innerHTML = `<div id="${modeIds.default}">
     <div id="${modeIds.selection}">
         <button id="${buttons.convert}" class="btn_large btn_green_white_innerfade"><span>Convert to gems</span></button>
         <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
+        <div>
+          <img class="eg-total-gems-img" src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxH5rd9eDAjcFyv45SRYAFMIcKL_PArgVSL403ulRUWEndVKv6gpycBVglIFRRtOPwewYz1qCdcGQb6IrhzdHZwPbwNeKAzj0D65Un0uqQpMLlhlPNIsEiPQ/https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxH5rd9eDAjcFyv45SRYAFMIcKL_PArgVSL403ulRUWEndVKv6gpycBVglIFRRtOPwewYz1qCdcGQb6IrhzdHZwPbwNeKAzj0D65Un0uqQpMLlhlPNIsEiPQ/330x192">
+          <span id="eg-total-gems">${totalGems}</span>
+        </div>
     </div>
     <div id="${modeIds.conversion}">
       <img src="https://community.akamai.steamstatic.com/public/images/login/throbber.gif">
@@ -253,7 +258,7 @@ function changeMode(modeId) {
       break;
   }
 
-  document.querySelectorAll('.eg-panel div').forEach((x) => { x.style.display = x.id === modeId ? 'flex' : 'none'; });
+  document.querySelectorAll('.eg-panel > div').forEach((x) => { x.style.display = x.id === modeId ? 'flex' : 'none'; });
 }
 
 let lastActiveInventory = null;

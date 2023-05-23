@@ -18,3 +18,7 @@
 .eg-selected img {
     display: none !important;
 }
+
+.eg-total-gems-img {
+    width: 50px;
+}
