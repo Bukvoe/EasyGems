@@ -33,5 +33,8 @@ function inventoryTabChanged() {
   }
 }
 
+document.getElementById(buttons.selectionOn).addEventListener('click', (e) => activatePanel(panels.selection));
+document.getElementById(buttons.selectionOff).addEventListener('click', (e) => activatePanel(panels.default));
+
 window.addEventListener('hashchange', () => inventoryTabChanged());
 window.addEventListener('load', () => inventoryTabChanged());
