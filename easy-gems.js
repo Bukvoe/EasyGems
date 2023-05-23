@@ -46,6 +46,20 @@ function isConvertible(assetId) {
   return !!convertAction;
 }
 
+const gemsValueAttribute = 'eg-gems-value';
+
+function setValue(item, value) {
+  item.setAttribute(gemsValueAttribute, value);
+}
+
+function getValue(item) {
+  return item.getAttribute(gemsValueAttribute);
+}
+
+function hasValue(item) {
+  return !!item.getAttribute(gemsValueAttribute);
+}
+
 function selectItem(item) {
   const assetId = item.id.split('_')[2];
 
