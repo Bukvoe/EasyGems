@@ -112,8 +112,17 @@ function selectItem(item) {
     return;
   }
 
-  setValue(item, 'Cost');
-  applySelection(item);
+  itemInfoByAssetId(assetId)
+    .then((itemInfo) => {
+      getGemsValue(itemInfo).then((value) => {
+        if (value < 1) {
+          return;
+        }
+
+        setValue(item, value);
+        applySelection(item);
+      });
+    });
 }
 
 function handleItemClick(item) {
