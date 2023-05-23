@@ -27,10 +27,11 @@ let activeMode = modeIds.default;
 
 const template = document.createElement('div');
 template.classList.add('eg-panel');
-template.innerHTML = `<div id="${modeIds.default}">
+template.innerHTML = 
+    `<div id="${modeIds.default}" style="display: none;">
         <button id="${buttons.selectionOn}" class="btn_large btn_green_white_innerfade"><span>Select items</span></button>
     </div>
-    <div id="${modeIds.selection}">
+    <div id="${modeIds.selection}" style="display: none;">
         <button id="${buttons.convert}" class="btn_large btn_green_white_innerfade"><span>Convert to gems</span></button>
         <button id="${buttons.selectAll}" class="btn_large btn_darkblue_white_innerfade"><span>Select All</span></button>
         <button id="${buttons.deselectAll}" class="btn_large btn_grey_white_innerfade"><span>Deselect All</span></button>
@@ -40,7 +41,7 @@ template.innerHTML = `<div id="${modeIds.default}">
         </div>
         <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
     </div>
-    <div id="${modeIds.conversion}">
+    <div id="${modeIds.conversion}" style="display: none;">
       <img src="https://community.akamai.steamstatic.com/public/images/login/throbber.gif">
       <span id="${conversion.textFieldId}"></span>
     </div>`;
