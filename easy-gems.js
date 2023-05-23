@@ -33,7 +33,26 @@ function deselectItem(item) {
   item.querySelector('a').textContent = '';
 }
 
+function isConvertible(assetId) {
+  const asset = g_ActiveInventory.m_rgAssets[assetId];
+  const ownerActions = asset?.description.owner_actions;
+
+  if (!ownerActions) {
+    return false;
+  }
+
+  const convertAction = ownerActions.find((x) => x.link.includes('GetGooValue'));
+
+  return !!convertAction;
+}
+
 function selectItem(item) {
+  const assetId = item.id.split('_')[2];
+
+  if (!isConvertible(assetId)) {
+    return;
+  }
+
   item.classList.add(itemSelectedClass);
 
   const itemCost = 'Cost';
