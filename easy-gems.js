@@ -73,6 +73,24 @@ async function itemInfoByAssetId(assetId) {
   };
 }
 
+async function getGemsValue(itemInfo) {
+  const params = new URLSearchParams(itemInfo);
+  params.append('sessionid', g_sessionID);
+
+  return fetch(`${g_strProfileURL}/ajaxgetgoovalue/?${params.toString()}`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      if (!response.ok) {
+        resolve(0);
+      }
+
+      return response.json();
+    })
+    .then((item) => item.goo_value)
+    .catch((err) => 0);
+}
+
 function applySelection(item) {
   item.classList.add(itemSelectedClass);
 
