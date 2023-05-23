@@ -95,6 +95,31 @@ async function getGemsValue(itemInfo) {
     .catch((err) => 0);
 }
 
+async function grindIntoGems(itemInfo) {
+  let params = [];
+
+  for (const x in itemInfo) {
+    const key = encodeURIComponent(x);
+    const value = encodeURIComponent(itemInfo[x]);
+
+    params.push(`${key}=${value}`);
+  }
+
+  params.sessionid = g_sessionID;
+
+  params = params.join('&');
+
+  const response = await fetch(`${g_strProfileURL}/ajaxgrindintogoo/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    },
+    body: params,
+  });
+
+  return response;
+}
+
 function applySelection(item) {
   item.classList.add(itemSelectedClass);
 
