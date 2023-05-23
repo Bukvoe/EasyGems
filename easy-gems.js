@@ -11,6 +11,8 @@ const buttons = {
 
 const steamAppId = 753;
 
+let activeMode = modeIds.default;
+
 const template = document.createElement('div');
 template.classList.add('eg-panel');
 template.innerHTML = `<div id="${modeIds.default}">
@@ -38,7 +40,9 @@ function addEventToNewItems() {
 }
 
 function changeMode(modeId) {
-  switch (modeId) {
+  activeMode = modeId;
+
+  switch (activeMode) {
     case modeIds.default:
       break;
 
@@ -64,6 +68,16 @@ function inventoryTabChanged() {
 
   lastActiveInventory = g_ActiveInventory.m_appid;
 }
+
+const observer = new MutationObserver((mutationList) => {
+  if (activeMode === modeIds.selection
+        && mutationList[0].addedNodes.length > 0
+        && mutationList[0].addedNodes[0].className === 'inventory_page') {
+    addEventToNewItems();
+  }
+});
+
+observer.observe(document.querySelector('.inventory_ctn'), { childList: true, subtree: true });
 
 document.getElementById(buttons.selectionOn).addEventListener('click', (e) => changeMode(modeIds.selection));
 document.getElementById(buttons.selectionOff).addEventListener('click', (e) => changeMode(modeIds.default));
