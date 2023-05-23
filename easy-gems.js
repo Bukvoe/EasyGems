@@ -16,6 +16,8 @@ const steamAppId = 753;
 const conversion = {
   total: 0,
   processed: 0,
+
+  textFieldId: 'eg-processed',
 };
 
 let activeMode = modeIds.default;
@@ -30,8 +32,8 @@ template.innerHTML = `<div id="${modeIds.default}">
         <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
     </div>
     <div id="${modeIds.conversion}">
-      <span id="eg-destroyed"></span>
       <img src="https://community.akamai.steamstatic.com/public/images/login/throbber.gif">
+      <span id="${conversion.textFieldId}"></span>
     </div>`;
 
 const inventoryTab = document.getElementById('tabcontent_inventory');
@@ -184,9 +186,15 @@ function addEventToNewItems() {
   });
 }
 
+function refresh() {
+  document.getElementById(conversion.textFieldId).textContent = `${conversion.processed}/${conversion.total} processed.`;
+}
+
 function startConversion(total) {
   conversion.total = total;
   conversion.processed = 0;
+
+  refresh();
 }
 
 function changeMode(modeId) {
@@ -201,7 +209,7 @@ function changeMode(modeId) {
       break;
 
     case modeIds.conversion:
-      const items = document.querySelectorAll('.eg-selected').length;
+      const items = document.querySelectorAll('.eg-selected');
 
       if (items.length < 1) {
         return;
