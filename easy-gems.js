@@ -61,7 +61,6 @@ function isConvertible(assetId) {
 
 function addTotalGems(value) {
   totalGems += value;
-
   document.getElementById('eg-total-gems').textContent = totalGems;
 }
 
@@ -188,6 +187,14 @@ function handleItemClick(item) {
   item.classList.contains(itemSelectedClass) ? deselectItem(item) : selectItem(item);
 }
 
+function reset() {
+  document.querySelectorAll('.eg-selected').forEach((x) => deselectItem(x));
+
+  conversion.total = 0;
+  conversion.processed = 0;
+  totalGems = 0;
+}
+
 const itemLoadedClass = 'eg-loaded';
 
 function addEventToNewItems() {
@@ -248,6 +255,8 @@ function changeMode(modeId) {
 
   switch (activeMode) {
     case modeIds.default:
+      reset();
+
       break;
 
     case modeIds.selection:
