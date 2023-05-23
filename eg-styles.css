@@ -1,4 +1,20 @@
-.eg-selected {
+:root {
+    --processedColor: greenyellow;
+  }
+  
+  .eg-panel > div {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    max-height: 40px;
+    padding: 8px;
+  }
+  
+  #eg-selection-off {
+    margin-left: auto !important;
+  }
+  
+  .eg-selected {
     align-items: center !important;
     background-repeat: no-repeat;
     border: 3px solid white !important;
@@ -7,18 +23,38 @@
     display: flex !important;
     justify-content: center !important;
     min-height: 100%;
-}
-
-.eg-selected a {
+  }
+  
+  .eg-selected a {
     font-size: 22px;
     font-weight: bold;
     position: relative !important;
-}
-
-.eg-selected img {
+  }
+  
+  .eg-selected img {
     display: none !important;
-}
-
-.eg-total-gems-img {
+  }
+  
+  .eg-counter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .eg-total-gems-img {
     width: 50px;
-}
+  }
+  
+  #eg-total-gems {
+    font-size: 18px;
+    color: white;
+  }
+  
+  .eg-item-processed {
+    border-color: var(--processedColor) !important;
+  }
+  
+  .eg-item-processed a {
+    color: var(--processedColor) !important;
+  }
+  
