@@ -27,12 +27,6 @@ inventoryTab.insertBefore(template, inventoryTab.children[0]);
 
 const itemSelectedClass = 'eg-selected';
 
-function deselectItem(item) {
-  item.classList.remove(itemSelectedClass);
-
-  item.querySelector('a').textContent = '';
-}
-
 function isConvertible(assetId) {
   const asset = g_ActiveInventory.m_rgAssets[assetId];
   const ownerActions = asset?.description.owner_actions;
@@ -60,6 +54,20 @@ function hasValue(item) {
   return !!item.getAttribute(gemsValueAttribute);
 }
 
+function deselectItem(item) {
+  item.classList.remove(itemSelectedClass);
+
+  item.querySelector('a').textContent = '';
+}
+
+function applySelection(item) {
+  item.classList.add(itemSelectedClass);
+
+  const itemCost = getValue(item);
+  item.style.background = `url(${item.querySelector('img').src})`;
+  item.querySelector('a').textContent = `+${itemCost}`;
+}
+
 function selectItem(item) {
   const assetId = item.id.split('_')[2];
 
@@ -67,11 +75,14 @@ function selectItem(item) {
     return;
   }
 
-  item.classList.add(itemSelectedClass);
+  if (hasValue(item)) {
+    applySelection(item);
 
-  const itemCost = 'Cost';
-  item.style.background = `url(${item.querySelector('img').src})`;
-  item.querySelector('a').textContent = `+${itemCost}`;
+    return;
+  }
+
+  setValue(item, 'Cost');
+  applySelection(item);
 }
 
 function handleItemClick(item) {
