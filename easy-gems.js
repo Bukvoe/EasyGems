@@ -8,6 +8,8 @@ const buttons = {
   selectionOff: 'eg-selection-off',
 };
 
+const steamAppId = 753;
+
 const template = document.createElement('div');
 template.classList.add('eg-panel');
 template.innerHTML = 
@@ -25,12 +27,16 @@ function activatePanel(id) {
   document.querySelectorAll('.eg-panel div').forEach((x) => { x.style.display = x.id === id ? 'flex' : 'none'; });
 }
 
+let lastActiveInventory = null;
+
 function inventoryTabChanged() {
-  if (g_bViewingOwnProfile && g_ActiveInventory.m_appid === 753) {
-    activatePanel(panels.default);
-  } else {
+  if (!g_bViewingOwnProfile || g_ActiveInventory.m_appid !== steamAppId) {
     activatePanel('');
+  } else if (lastActiveInventory !== steamAppId) {
+    activatePanel(panels.default);
   }
+
+  lastActiveInventory = g_ActiveInventory.m_appid;
 }
 
 document.getElementById(buttons.selectionOn).addEventListener('click', (e) => activatePanel(panels.selection));
