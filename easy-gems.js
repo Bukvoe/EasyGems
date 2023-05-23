@@ -250,7 +250,6 @@ function itemToGems(item) {
     .then((itemInfo) => {
       itemInfo.goo_value_expected = getValue(item);
       grindIntoGems(itemInfo).then((x) => {
-        console.log(123);
         item.classList.add('eg-item-processed');
       }).finally(() => {
         itemProcessed();
