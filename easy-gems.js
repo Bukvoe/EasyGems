@@ -60,6 +60,19 @@ function deselectItem(item) {
   item.querySelector('a').textContent = '';
 }
 
+async function itemInfoByAssetId(assetId) {
+  const asset = g_ActiveInventory.m_rgAssets[assetId];
+  const ownerActions = asset.description.owner_actions;
+  const { link } = ownerActions.find((x) => x.link.includes('GetGooValue'));
+  const appid = link.match(/GetGooValue\(.*,.*, *'?([0-9]+)'? *,.*,.*/)[1];
+
+  return {
+    appid,
+    contextid: asset.contextid,
+    assetid: asset.assetid,
+  };
+}
+
 function applySelection(item) {
   item.classList.add(itemSelectedClass);
 
