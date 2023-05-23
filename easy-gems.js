@@ -197,6 +197,32 @@ function startConversion(total) {
   refresh();
 }
 
+function itemProcessed() {
+  conversion.processed++;
+
+  refresh();
+
+  if (conversion.processed === conversion.total) {
+    window.location.reload();
+  }
+}
+
+function itemToGems(item) {
+  if (!hasValue(item)) {
+    return;
+  }
+
+  itemInfoByAssetId(item)
+    .then((itemInfo) => {
+      itemInfo.goo_value_expected = getValue(item);
+      grindIntoGems(itemInfo).then((x) => {
+        item.classList.add('eg-destroyed');
+      }).finally(() => {
+        itemProcessed();
+      });
+    }).catch((err) => {});
+}
+
 function changeMode(modeId) {
   activeMode = modeId;
 
