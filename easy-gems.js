@@ -204,7 +204,9 @@ function addEventToNewItems() {
     item.classList.add(itemLoadedClass);
 
     item.addEventListener('click', () => {
-      handleItemClick(item);
+      if (activeMode === modeIds.selection) {
+        handleItemClick(item);
+      }
     });
   });
 }
