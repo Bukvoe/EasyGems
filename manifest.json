@@ -2,6 +2,15 @@
     "name": "Easy Gems",
     "version": "1.0",
     "manifest_version": 3,
-    "content_scripts": [],
-    "permissions": []
+    "content_scripts": [
+        {
+            "matches": ["https://steamcommunity.com/id/*/inventory*"],
+            "js": ["injector.js"]
+        }
+    ],
+    "permissions": [],
+    "web_accessible_resources": [{
+        "resources": ["easy-gems.js"],
+        "matches": ["<all_urls>"]
+    }]
 }
