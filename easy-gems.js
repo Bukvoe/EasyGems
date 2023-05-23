@@ -9,6 +9,8 @@ const buttons = {
   convert: 'eg-convert',
   selectionOn: 'eg-selection-on',
   selectionOff: 'eg-selection-off',
+  selectAll: 'eg-select-all',
+  deselectAll: 'eg-deselect-all',
 };
 
 const steamAppId = 753;
@@ -30,6 +32,8 @@ template.innerHTML = `<div id="${modeIds.default}">
     </div>
     <div id="${modeIds.selection}">
         <button id="${buttons.convert}" class="btn_large btn_green_white_innerfade"><span>Convert to gems</span></button>
+        <button id="${buttons.selectAll}" class="btn_large btn_darkblue_white_innerfade"><span>Select All</span></button>
+        <button id="${buttons.deselectAll}" class="btn_large btn_grey_white_innerfade"><span>Deselect All</span></button>
         <div class="eg-counter">
           <img class="eg-total-gems-img" src="https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxH5rd9eDAjcFyv45SRYAFMIcKL_PArgVSL403ulRUWEndVKv6gpycBVglIFRRtOPwewYz1qCdcGQb6IrhzdHZwPbwNeKAzj0D65Un0uqQpMLlhlPNIsEiPQ/https://community.akamai.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxH5rd9eDAjcFyv45SRYAFMIcKL_PArgVSL403ulRUWEndVKv6gpycBVglIFRRtOPwewYz1qCdcGQb6IrhzdHZwPbwNeKAzj0D65Un0uqQpMLlhlPNIsEiPQ/330x192">
           <span id="eg-total-gems">${totalGems}</span>
@@ -306,9 +310,17 @@ const observer = new MutationObserver((mutationList) => {
 
 observer.observe(document.querySelector('.inventory_ctn'), { childList: true, subtree: true });
 
+const activePageItems = '.inventory_ctn > .inventory_page:not([style*="display: none"]) .item.app753';
+
 document.getElementById(buttons.selectionOn).addEventListener('click', (e) => changeMode(modeIds.selection));
 document.getElementById(buttons.convert).addEventListener('click', (e) => changeMode(modeIds.conversion));
 document.getElementById(buttons.selectionOff).addEventListener('click', (e) => changeMode(modeIds.default));
+document.getElementById(buttons.selectAll).addEventListener('click', (e) => {
+  document.querySelectorAll(`${activePageItems}:not(.eg-selected)`).forEach((x) => setTimeout(selectItem(x), 200));
+});
+document.getElementById(buttons.deselectAll).addEventListener('click', (e) => {
+  document.querySelectorAll(`${activePageItems}.eg-selected`).forEach((x) => deselectItem(x));
+});
 
 window.addEventListener('hashchange', () => inventoryTabChanged());
 window.addEventListener('load', () => inventoryTabChanged());
