@@ -5,6 +5,7 @@ const modeIds = {
 };
 
 const buttons = {
+  convert: 'eg-convert',
   selectionOn: 'eg-selection-on',
   selectionOff: 'eg-selection-off',
 };
@@ -19,6 +20,7 @@ template.innerHTML = `<div id="${modeIds.default}">
         <button id="${buttons.selectionOn}" class="btn_large btn_green_white_innerfade"><span>Select items</span></button>
     </div>
     <div id="${modeIds.selection}">
+        <button id="${buttons.convert}" class="btn_large btn_green_white_innerfade"><span>Convert to gems</span></button>
         <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
     </div>`;
 
@@ -213,6 +215,7 @@ const observer = new MutationObserver((mutationList) => {
 observer.observe(document.querySelector('.inventory_ctn'), { childList: true, subtree: true });
 
 document.getElementById(buttons.selectionOn).addEventListener('click', (e) => changeMode(modeIds.selection));
+document.getElementById(buttons.convert).addEventListener('click', (e) => console.log('Convert'));
 document.getElementById(buttons.selectionOff).addEventListener('click', (e) => changeMode(modeIds.default));
 
 window.addEventListener('hashchange', () => inventoryTabChanged());
