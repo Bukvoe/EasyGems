@@ -59,6 +59,12 @@ function isConvertible(assetId) {
   return !!convertAction;
 }
 
+function addTotalGems(value) {
+  totalGems += value;
+
+  document.getElementById('eg-total-gems').textContent = totalGems;
+}
+
 const gemsValueAttribute = 'eg-gems-value';
 
 function setValue(item, value) {
@@ -66,7 +72,7 @@ function setValue(item, value) {
 }
 
 function getValue(item) {
-  return item.getAttribute(gemsValueAttribute);
+  return +item.getAttribute(gemsValueAttribute);
 }
 
 function hasValue(item) {
@@ -79,6 +85,8 @@ function deselectItem(item) {
   }
 
   item.classList.remove(itemSelectedClass);
+
+  addTotalGems(-getValue(item));
 
   item.querySelector('a').textContent = '';
 }
@@ -142,9 +150,12 @@ async function grindIntoGems(itemInfo) {
 function applySelection(item) {
   item.classList.add(itemSelectedClass);
 
-  const itemCost = getValue(item);
+  const value = getValue(item);
+
+  addTotalGems(value);
+
   item.style.background = `url(${item.querySelector('img').src})`;
-  item.querySelector('a').textContent = `+${itemCost}`;
+  item.querySelector('a').textContent = `+${value}`;
 }
 
 function selectItem(item) {
@@ -210,7 +221,7 @@ function itemProcessed() {
   refresh();
 
   if (conversion.processed === conversion.total) {
-    // window.location.reload();
+    window.location.reload();
   }
 }
 
