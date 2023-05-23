@@ -119,7 +119,7 @@ async function grindIntoGems(itemInfo) {
     params.push(`${key}=${value}`);
   }
 
-  params.sessionid = g_sessionID;
+  params.push(`sessionid=${g_sessionID}`);
 
   params = params.join('&');
 
@@ -190,11 +190,13 @@ function refresh() {
   document.getElementById(conversion.textFieldId).textContent = `${conversion.processed}/${conversion.total} processed.`;
 }
 
-function startConversion(total) {
-  conversion.total = total;
+function startConversion(items) {
+  conversion.total = items.length;
   conversion.processed = 0;
 
   refresh();
+
+  items.forEach((x) => itemToGems(x));
 }
 
 function itemProcessed() {
@@ -203,7 +205,7 @@ function itemProcessed() {
   refresh();
 
   if (conversion.processed === conversion.total) {
-    window.location.reload();
+    // window.location.reload();
   }
 }
 
@@ -212,7 +214,9 @@ function itemToGems(item) {
     return;
   }
 
-  itemInfoByAssetId(item)
+  const assetId = item.id.split('_')[2];
+
+  itemInfoByAssetId(assetId)
     .then((itemInfo) => {
       itemInfo.goo_value_expected = getValue(item);
       grindIntoGems(itemInfo).then((x) => {
@@ -241,7 +245,7 @@ function changeMode(modeId) {
         return;
       }
 
-      startConversion(items.length);
+      startConversion(items);
 
       break;
 
