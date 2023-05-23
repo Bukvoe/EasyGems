@@ -2,6 +2,7 @@ const modeIds = {
   default: 'eg-default-panel',
   disabled: '',
   selection: 'eg-selection-panel',
+  conversion: 'eg-conversion-panel',
 };
 
 const buttons = {
@@ -11,6 +12,11 @@ const buttons = {
 };
 
 const steamAppId = 753;
+
+const conversion = {
+  total: 0,
+  processed: 0,
+};
 
 let activeMode = modeIds.default;
 
@@ -22,6 +28,10 @@ template.innerHTML = `<div id="${modeIds.default}">
     <div id="${modeIds.selection}">
         <button id="${buttons.convert}" class="btn_large btn_green_white_innerfade"><span>Convert to gems</span></button>
         <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
+    </div>
+    <div id="${modeIds.conversion}">
+      <span id="eg-destroyed"></span>
+      <img src="https://community.akamai.steamstatic.com/public/images/login/throbber.gif">
     </div>`;
 
 const inventoryTab = document.getElementById('tabcontent_inventory');
@@ -174,6 +184,11 @@ function addEventToNewItems() {
   });
 }
 
+function startConversion(total) {
+  conversion.total = total;
+  conversion.processed = 0;
+}
+
 function changeMode(modeId) {
   activeMode = modeId;
 
@@ -183,6 +198,17 @@ function changeMode(modeId) {
 
     case modeIds.selection:
       addEventToNewItems();
+      break;
+
+    case modeIds.conversion:
+      const items = document.querySelectorAll('.eg-selected').length;
+
+      if (items.length < 1) {
+        return;
+      }
+
+      startConversion(items.length);
+
       break;
 
     default:
@@ -215,7 +241,7 @@ const observer = new MutationObserver((mutationList) => {
 observer.observe(document.querySelector('.inventory_ctn'), { childList: true, subtree: true });
 
 document.getElementById(buttons.selectionOn).addEventListener('click', (e) => changeMode(modeIds.selection));
-document.getElementById(buttons.convert).addEventListener('click', (e) => console.log('Convert'));
+document.getElementById(buttons.convert).addEventListener('click', (e) => changeMode(modeIds.conversion));
 document.getElementById(buttons.selectionOff).addEventListener('click', (e) => changeMode(modeIds.default));
 
 window.addEventListener('hashchange', () => inventoryTabChanged());
