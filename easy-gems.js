@@ -55,6 +55,10 @@ function hasValue(item) {
 }
 
 function deselectItem(item) {
+  if (!hasValue(item)) {
+    return;
+  }
+
   item.classList.remove(itemSelectedClass);
 
   item.querySelector('a').textContent = '';
