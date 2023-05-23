@@ -3,14 +3,19 @@ const panels = {
   selection: 'eg-selection-panel',
 };
 
+const buttons = {
+  selectionOn: 'eg-selection-on',
+  selectionOff: 'eg-selection-off',
+};
+
 const template = document.createElement('div');
 template.classList.add('eg-panel');
 template.innerHTML = 
     `<div id="${panels.default}">
-        <button id="eg-selection-on" class="btn_large btn_green_white_innerfade"><span>Select items</span></button>
+        <button id="${buttons.selectionOn}" class="btn_large btn_green_white_innerfade"><span>Select items</span></button>
     </div>
     <div id="${panels.selection}">
-        <button id="eg-select-off" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
+        <button id="${buttons.selectionOff}" class="btn_large btn_grey_white_innerfade"><span>Cacnel</span></button>
     </div>`;
 
 const inventoryTab = document.getElementById('tabcontent_inventory');
