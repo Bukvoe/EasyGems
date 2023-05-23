@@ -25,6 +25,24 @@ template.innerHTML = `<div id="${modeIds.default}">
 const inventoryTab = document.getElementById('tabcontent_inventory');
 inventoryTab.insertBefore(template, inventoryTab.children[0]);
 
+const itemSelectedClass = 'eg-selected';
+
+function deselectItem(item) {
+  item.classList.remove(itemSelectedClass);
+
+  console.log(`Deselected ${item}`);
+}
+
+function selectItem(item) {
+  item.classList.add(itemSelectedClass);
+
+  console.log(`Selected ${item}`);
+}
+
+function handleItemClick(item) {
+  item.classList.contains(itemSelectedClass) ? deselectItem(item) : selectItem(item);
+}
+
 const itemLoadedClass = 'eg-loaded';
 
 function addEventToNewItems() {
@@ -34,7 +52,7 @@ function addEventToNewItems() {
     item.classList.add(itemLoadedClass);
 
     item.addEventListener('click', () => {
-      console.log('Item selected');
+      handleItemClick(item);
     });
   });
 }
