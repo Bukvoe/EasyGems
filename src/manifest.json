@@ -1,5 +1,6 @@
 {
     "name": "Easy Gems",
+    "description": "A tool to quickly convert Steam items into gems.",
     "version": "1.0",
     "manifest_version": 3,
     "icons": {
