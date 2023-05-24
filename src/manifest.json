@@ -3,20 +3,20 @@
     "version": "1.0",
     "manifest_version": 3,
     "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
     },
     "content_scripts": [
         {
             "matches": ["https://steamcommunity.com/id/*/inventory*"],
-            "js": ["injector.js"],
-            "css": ["eg-styles.css"]
+            "js": ["scripts/injector.js"],
+            "css": ["styles/eg-styles.css"]
         }
     ],
     "permissions": [],
     "web_accessible_resources": [{
-        "resources": ["easy-gems.js"],
+        "resources": ["scripts/easy-gems.js"],
         "matches": ["<all_urls>"]
     }]
 }
